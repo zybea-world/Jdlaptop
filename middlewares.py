@@ -30,7 +30,7 @@ class SeleMiddleware(object):
     def __init__(self):
 
         op = webdriver.ChromeOptions()
-        op.add_experimental_option('debuggerAddress','127.0.0.1:9222')#远程调试模式，放置识别为非人工操作
+        op.add_experimental_option('debuggerAddress','127.0.0.1:9222')#远程调试模式，防止识别为非人工操作
         #op.add_argument("--headless")#无头模式
         op.add_argument('--disable-extensions')#禁止加载拓展
         #prefs = { 'profile.default_content_setting_values': { 'images': 2 } }
