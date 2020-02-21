@@ -12,10 +12,16 @@ import logging
 
 
 class TwismysqlPipeline(object):
+    
+    
+    def __init__(self, dbpool):
 
+        self.db = dbpool
+        self.logger = logging.getLogger(__name__)
 
     @classmethod
     def from_crawler(cls, crawler):
+        
         params = dict(
             host = crawler.settings.get('HOST'),
             user = crawler.settings.get('USER'),
@@ -26,15 +32,10 @@ class TwismysqlPipeline(object):
             use_unicode = True,
         )
         dbpool = adbapi.ConnectionPool('pymysql',**params)
-
         return cls(dbpool)
 
-    def __init__(self, dbpool):
-
-        self.db = dbpool
-        self.logger = logging.getLogger(__name__)
-
     def process_item(self, item, spider):
+        
         if spider.name == 'laptop':
             query = self.db.runInteraction(self.do_insert, item)
             self.logger.error(query)
@@ -45,11 +46,12 @@ class TwismysqlPipeline(object):
    #    print(failure)
 
     def do_insert(self, cursor, item):
-        sql,lis = item.get_insert
-        cursor.execute(sql, lis*2)
+        
+        sql,values = item.get_insert
+        cursor.execute(sql, values*2)
 
     def close_spider(self,spider):
-
+        
         self.db.close()
 
 
@@ -70,6 +72,7 @@ class JsonPipeline(object):
         return item
 
     def close_spider(self, spider):
+        
         self.exporter.finish_exporting()
         self.f.close()
         pass
