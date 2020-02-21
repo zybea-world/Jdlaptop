@@ -14,7 +14,7 @@ BOT_NAME = 'Jdlaptop'
 SPIDER_MODULES = ['Jdlaptop.spiders']
 NEWSPIDER_MODULE = 'Jdlaptop.spiders'
 KEYWORD = 'laptop'
-MAX_PAGE = 2
+MAX_PAGE = 2 #设置最大爬取页数
 
 local_path = os.path.dirname(__file__)
 IMAGES_URLS_FIELD = 'image'
@@ -100,7 +100,7 @@ ITEM_PIPELINES = {
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 HOST = 'localhost'
 USER = 'root'
-PASSWD = 'zyy1990518'
+PASSWD = '*******'
 DB = 'test'
 PORT = 27017
 COL  = 'laptop'
