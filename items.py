@@ -20,11 +20,11 @@ class JdlaptopItem(Item):
 
     @property
     def get_insert(self):
-        lis = tuple(dict(self).values())
+        values = tuple(dict(self).values())
         index = ','.join(['%s']*len(lis))
-        dupli = ','.join([key+'=%s' for key in dict(self)])
-        sql = "insert into laptop value({}) on duplicate key update {}".format(index,dupli)
+        update = ','.join([f"{key} = %s" for key in dict(self).keys()])
+        sql = "insert into laptop value({}) on duplicate key update {}".format(index,update)
 
-        return sql,lis
+        return sql,values
 
     pass
